@@ -21,22 +21,26 @@ use Label84\NederlandPostcode\Resources\QuotaResource;
  */
 class NederlandPostcodeClient
 {
-    public const DEFAULT_BASE_URL = 'http://api.localhost:8887/';
+    public const DEFAULT_BASE_URL = 'https://api.nederlandpostcode.nl/';
 
     protected Client $client;
 
+    /**
+     * @param  array<string, string>  $headers
+     */
     public function __construct(
         public string $key,
         public string $baseUrl = self::DEFAULT_BASE_URL,
         public int $timeout = 5,
+        array $headers = []
     ) {
         $this->client = new Client([
             'base_uri' => $this->baseUrl,
             'timeout' => $this->timeout,
-            'headers' => [
+            'headers' => array_merge([
                 'Authorization' => "Bearer {$this->key}",
                 'Accept' => 'application/json',
-            ],
+            ], $headers),
         ]);
     }
 

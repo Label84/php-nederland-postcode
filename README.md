@@ -29,6 +29,29 @@ composer require label84/php-nederland-postcode
 
 ## Usage
 
+```php
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Label84\NederlandPostcode\NederlandPostcodeClient;
+
+$client = new NederlandPostcodeClient(
+    key: 'npa_live_XXX',
+);
+
+try {
+    $address = $client->find(
+        postcode: '1118BN',
+        number: 800,
+        addition: ['coordinates'],
+    );
+} catch (NederlandPostcodeException $exception) {
+    // handle exception
+}
+
+echo $address->street; // Schiphol Boulevard
+echo $address->coordinates->latitude; // 52.30703569036619
+```
+
 ### Address Endpoint
 
 The address endpoint allows you to fetch address information from the Nederland Postcode API.
@@ -135,7 +158,7 @@ AddressCollection {
 
 ### Quota Endpoint
 
-The quota endpoint allows you to check your current API usage and limits. This endpoint does not increase your usage quota.
+The quota endpoint allows you to check your current API usage and limits. This endpoint does not increment your usage count.
 
 > [!NOTE]
 > Values may lag behind the actual usage. They’re cached for up to five minutes, so the `used` and `limit` numbers might not be fully up-to-date.
@@ -196,7 +219,7 @@ When a network or HTTP error occurs during the API request, a `NederlandPostcode
 ```
 
 ```bash
-./vendor/bin/phpunit tests
+./vendor/bin/phpunit
 ```
 
 ## License

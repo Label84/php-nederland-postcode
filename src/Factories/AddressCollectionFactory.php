@@ -18,7 +18,10 @@ class AddressCollectionFactory
      *     municipality: string,
      *     province: string,
      *     country: string,
-     *     coordinates: array{latitude: float, longitude: float}
+     *     coordinates?: array{
+     *        latitude: float,
+     *        longitude: float,
+     *    },
      * }>} $response
      */
     public static function make(array $response): AddressCollection
@@ -33,10 +36,10 @@ class AddressCollectionFactory
                 municipality: $attributes['municipality'],
                 province: $attributes['province'],
                 country: $attributes['country'],
-                coordinates: new Coordinates(
+                coordinates: isset($attributes['coordinates']) ? new Coordinates(
                     latitude: $attributes['coordinates']['latitude'],
                     longitude: $attributes['coordinates']['longitude'],
-                ),
+                ) : null,
             );
         }, $response['data']);
 

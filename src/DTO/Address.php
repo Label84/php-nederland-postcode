@@ -13,6 +13,6 @@ class Address
         public readonly string $municipality,
         public readonly string $province,
         public readonly string $country,
-        public readonly Coordinates $coordinates,
+        public readonly ?Coordinates $coordinates,
     ) {}
 }
