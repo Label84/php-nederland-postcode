@@ -29,13 +29,11 @@ class TestCase extends BaseTestCase
         $mockAddresses = $this->createStub(AddressesResource::class);
         $mockAddresses->method('get')
             ->willReturnCallback(function (string $postcode, ?int $number, ?array $addition, $attributes = []) {
-                if ($postcode === '1118BN' && $number === 800) {
-                    return $this->singleAddressResponse();
-                }
-                if ($postcode === '1118BN' && ($number === null || $number === 0)) {
-                    return $this->multipleAddressesResponse();
-                }
-                return new AddressCollection([]);
+                return match (true) {
+                    $postcode === '1118BN' && $number === 800 => $this->singleAddressResponse(),
+                    $postcode === '1118BN' && ($number === null || $number === 0) => $this->multipleAddressesResponse(),
+                    default => new AddressCollection([]),
+                };
             });
 
         $mockQuota = $this->createStub(QuotaResource::class);
