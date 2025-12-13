@@ -13,7 +13,7 @@ class AddressesResource extends BaseResource
      */
     public function get(
         string $postcode,
-        ?int $number,
+        int $number,
         ?string $addition,
         array $attributes = [],
     ): AddressCollection {

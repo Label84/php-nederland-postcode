@@ -73,7 +73,7 @@ class NederlandPostcodeClient
      * @param  array<int|string, string|AddressAttributesEnum>  $attributes
      * @return AddressCollection<Address>
      */
-    public function list(string $postcode, ?int $number = null, ?string $addition = null, array $attributes = []): AddressCollection
+    public function list(string $postcode, int $number, ?string $addition = null, array $attributes = []): AddressCollection
     {
         return $this->addresses()->get(
             postcode: $postcode,
