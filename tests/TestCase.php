@@ -28,7 +28,7 @@ class TestCase extends BaseTestCase
     {
         $mockAddresses = $this->createStub(AddressesResource::class);
         $mockAddresses->method('get')
-            ->willReturnCallback(function (string $postcode, ?int $number, ?array $addition, $attributes = []) {
+            ->willReturnCallback(function (string $postcode, int $number, ?array $addition, $attributes = []) {
                 return match (true) {
                     $postcode === '1118BN' && $number === 800 => $this->singleAddressResponse(),
                     $postcode === '1015CN' && $number === 10 => $this->multipleAddressesResponse(),
