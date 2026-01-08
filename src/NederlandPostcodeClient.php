@@ -10,11 +10,13 @@ use Label84\NederlandPostcode\Enums\AddressAttributesEnum;
 use Label84\NederlandPostcode\Exceptions\AddressNotFoundException;
 use Label84\NederlandPostcode\Exceptions\MultipleAddressesFoundException;
 use Label84\NederlandPostcode\Resources\AddressesResource;
+use Label84\NederlandPostcode\Resources\EnergyLabelResource;
 use Label84\NederlandPostcode\Resources\QuotaResource;
 
 /**
  * @method AddressesResource addresses()
  * @method QuotaResource quota()
+ * @method EnergyLabelResource energyLabels()
  * @method AddressCollection<Address> list(string $postcode, int $number, ?string $addition = null, array<int|string, string|AddressAttributesEnum> $attributes = [])
  * @method Address find(string $postcode, int $number, ?string $addition = null, array<int|string, string|AddressAttributesEnum> $attributes = [])
  * @method Quota usage()
@@ -60,6 +62,11 @@ class NederlandPostcodeClient
     public function addresses(): AddressesResource
     {
         return new AddressesResource($this);
+    }
+
+    public function energyLabels(): EnergyLabelResource
+    {
+        return new EnergyLabelResource($this);
     }
 
     public function quota(): QuotaResource

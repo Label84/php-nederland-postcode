@@ -12,6 +12,7 @@ Register for free to obtain a **test API key** at [nederlandpostcode.nl](https:/
   - [Address Endpoint](#address-endpoint)
     - [Single Address](#single-address)
     - [Multiple Addresses](#multiple-addresses)
+  - [Energy Label Endpoint](#energy-label-endpoint)
   - [Quota Endpoint](#quota-endpoint)
 - [Error Handling](#error-handling)
 
@@ -124,66 +125,27 @@ $address = $client->list(
 );
 ```
 
-This will return an `AddressCollection` object like this:
+This will return an `AddressCollection`, which is a collection of `Address` objects.
+
+### Energy Label Endpoint
+
+The energy label endpoint allows you to fetch energy label information for a given postcode and house number.
 
 ```php
-AddressCollection {
-    items: [
-        Address {
-            postcode: "1015CN",
-            number: 10,
-            addition: 'A',
-            street: "Keizersgracht",
-            city: "Amsterdam",
-            municipality: "Amsterdam",
-            province: "Noord-Holland",
-            coordinates: Coordinates {
-                latitude: 52.379401496779124,
-                longitude: 4.889216673725493
-            }
-        },
-        Address {
-            postcode: "1015CN",
-            number: 10,
-            addition: 'B',
-            street: "Keizersgracht",
-            city: "Amsterdam",
-            municipality: "Amsterdam",
-            province: "Noord-Holland",
-            coordinates: Coordinates {
-                latitude: 52.379401496779124,
-                longitude: 4.889216673725493
-            }
-        },
-        Address {
-            postcode: "1015CN",
-            number: 10,
-            addition: 'C',
-            street: "Keizersgracht",
-            city: "Amsterdam",
-            municipality: "Amsterdam",
-            province: "Noord-Holland",
-            coordinates: Coordinates {
-                latitude: 52.379401496779124,
-                longitude: 4.889216673725493
-            }
-        },
-        Address {
-            postcode: "1015CN",
-            number: 10,
-            addition: 'D',
-            street: "Keizersgracht",
-            city: "Amsterdam",
-            municipality: "Amsterdam",
-            province: "Noord-Holland",
-            coordinates: Coordinates {
-                latitude: 52.379401496779124,
-                longitude: 4.889216673725493
-            }
-        },
-    ]
-}
+use Label84\NederlandPostcode\NederlandPostcodeClient;
+
+$client = new NederlandPostcodeClient(
+    key: 'npa_live_XXX'
+);
+
+$energyLabels = $client->energyLabels()->get(
+    postcode: '1118BN',
+    number: 800,
+    addition: null,
+);
 ```
+
+This will return an `EnergyLabelCollection` object, which is a collection of `EnergyLabel` objects.
 
 ### Quota Endpoint
 
