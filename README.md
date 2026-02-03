@@ -43,7 +43,7 @@ try {
     $address = $client->find(
         postcode: '1118BN',
         number: 800,
-        addition: ['coordinates'],
+        attributes: ['coordinates'],
     );
 } catch (NederlandPostcodeException $exception) {
     // handle exception
@@ -80,7 +80,7 @@ $address = $client->find(
     postcode: '1118BN',
     number: 800,
     addition: null,
-    attributes: ['coordinates']
+    attributes: ['coordinates'],
 );
 ```
 
@@ -117,19 +117,44 @@ $client = new NederlandPostcodeClient(
     key: 'npa_live_XXX'
 );
 
-$address = $client->list(
+$addresses = $client->list(
     postcode: '1015CN',
     number: 10,
     addition: null,
-    attributes: ['coordinates']
+    attributes: ['coordinates'],
 );
 ```
 
-This will return an `AddressCollection`, which is a collection of `Address` objects.
+This will return an `AddressCollection` like this:
+
+```php
+AddressCollection {
+    items: [
+        Address {
+            postcode: "1015CN",
+            number: 10,
+            addition: "A",
+            street: "Keizersgracht",
+            city: "Amsterdam",
+            municipality: "Amsterdam",
+            province: "Noord-Holland",
+            country: "Nederland",
+            coordinates: Coordinates { ... }
+        },
+        Address {
+            postcode: "1015CN",
+            number: 10,
+            addition: "B",
+            street: "Keizersgracht",
+            ...
+        }
+    ]
+}
+```
 
 ### Energy Label Endpoint
 
-The energy label endpoint allows you to fetch energy label information for a given postcode and house number.
+The energy label endpoint allows you to fetch energy label information for a given postcode and house number (with optional addition).
 
 ```php
 use Label84\NederlandPostcode\NederlandPostcodeClient;
@@ -145,7 +170,29 @@ $energyLabels = $client->energyLabels()->get(
 );
 ```
 
-This will return an `EnergyLabelCollection` object, which is a collection of `EnergyLabel` objects.
+This will return an `EnergyLabelCollection` like this:
+
+```php
+EnergyLabelCollection {
+    items: [
+        EnergyLabel {
+            postcode: "1118BN",
+            number: 800,
+            addition: null,
+            street: "Schiphol Boulevard",
+            city: "Schiphol",
+            inspectionDate: DateTime("2022-08-02"),
+            validUntilDate: DateTime("2032-08-02"),
+            constructionType: "utiliteitsbouw",
+            buildingType: null,
+            energyLabel: "A+++",
+            maxEnergyDemand: 98.4,
+            maxFossilEnergyDemand: 55.48,
+            minRenewableShare: 55.3
+        }
+    ]
+}
+```
 
 ### Quota Endpoint
 
