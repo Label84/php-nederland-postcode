@@ -9,12 +9,15 @@ use Label84\NederlandPostcode\DTO\Quota;
 use Label84\NederlandPostcode\Enums\AddressAttributesEnum;
 use Label84\NederlandPostcode\Exceptions\AddressNotFoundException;
 use Label84\NederlandPostcode\Exceptions\MultipleAddressesFoundException;
+use Label84\NederlandPostcode\Exceptions\NederlandPostcodeException;
 use Label84\NederlandPostcode\Resources\AddressesResource;
+use Label84\NederlandPostcode\Resources\EnergyLabelResource;
 use Label84\NederlandPostcode\Resources\QuotaResource;
 
 /**
  * @method AddressesResource addresses()
  * @method QuotaResource quota()
+ * @method EnergyLabelResource energyLabels()
  * @method AddressCollection<Address> list(string $postcode, int $number, ?string $addition = null, array<int|string, string|AddressAttributesEnum> $attributes = [])
  * @method Address find(string $postcode, int $number, ?string $addition = null, array<int|string, string|AddressAttributesEnum> $attributes = [])
  * @method Quota usage()
@@ -46,7 +49,7 @@ class NederlandPostcodeClient
 
     /**
      * @param  array<string, mixed>  $options
-     * @return array<string, mixed>
+     * @return array<mixed, mixed>
      */
     public function request(string $method, string $uri, array $options = []): array
     {
@@ -54,12 +57,22 @@ class NederlandPostcodeClient
 
         $body = $response->getBody()->getContents();
 
-        return json_decode($body, true); // @phpstan-ignore return.type
+        $decoded = json_decode($body, true);
+
+        if (! is_array($decoded)) {
+            throw new NederlandPostcodeException('Invalid JSON response from API');
+        }
+        return $decoded;
     }
 
     public function addresses(): AddressesResource
     {
         return new AddressesResource($this);
+    }
+
+    public function energyLabels(): EnergyLabelResource
+    {
+        return new EnergyLabelResource($this);
     }
 
     public function quota(): QuotaResource
