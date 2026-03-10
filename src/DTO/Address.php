@@ -14,5 +14,11 @@ class Address
         public readonly string $province,
         public readonly string $country,
         public readonly ?Coordinates $coordinates,
+        public readonly ?District $district,
+        public readonly ?string $function,
+        public readonly ?string $location_status,
+        public readonly ?string $property_status,
+        public readonly ?float $surface_area,
+        public readonly ?int $construction_year,
     ) {}
 }
