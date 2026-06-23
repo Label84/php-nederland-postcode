@@ -15,6 +15,7 @@ class Address
         public readonly string $country,
         public readonly ?Coordinates $coordinates,
         public readonly ?District $district,
+        public readonly ?string $neighborhood,
         public readonly ?string $function,
         public readonly ?string $location_status,
         public readonly ?string $property_status,
