@@ -15,7 +15,7 @@ class EnergyLabelResource extends BaseResource
         // @phpstan-ignore-next-line
         return EnergyLabelCollectionFactory::make($this->request(
             method: 'GET',
-            path: 'v1/energy-label',
+            path: 'v2/energy-label',
             query: [
                 'postcode' => $postcode,
                 'number' => $number,
