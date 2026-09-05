@@ -6,6 +6,7 @@ enum AddressAttributesEnum: string
 {
     case COORDINATES = 'coordinates';
     case DISTRICT = 'district';
+    case NEIGHBORHOOD = 'neighborhood';
     case FUNCTION = 'function';
     case LOCATION_STATUS = 'location_status';
     case PROPERTY_STATUS = 'property_status';

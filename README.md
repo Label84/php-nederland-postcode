@@ -62,7 +62,8 @@ You can search addresses using either the `find` method for a single address or 
 The following optional attributes can be requested to be included in the response:
 
 - `coordinates`: Includes latitude and longitude of the address.
-- `district`: Includes the official and name of the district that the address belongs to.
+- `district`: Includes the official and common name of the district that the address belongs to.
+- `neighborhood`: Includes the official name of the neighborhood that the address belongs to.
 - `function`: Includes the function of the address (e.g. residential, commercial, healthcare, etc.).
 - `location_status`: Includes the location status of the address (e.g. active, in development, etc.).
 - `property_status`: Includes the property status of the address (e.g. in use, under construction, etc.).
@@ -88,6 +89,7 @@ $address = $client->find(
     addition: null,
     attributes: [
         AddressAttributesEnum::COORDINATES,
+        // more attributes can be added here
     ],
 );
 ```
@@ -111,6 +113,7 @@ Address {
         official: "Schiphol",
         name: "Schiphol"
     },
+    neighborhood: "Schiphol",
     function: "kantoorfunctie",
     location_status: "verblijfsobject in gebruik",
     property_status: "pand in gebruik",

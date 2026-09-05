@@ -26,6 +26,7 @@ class AddressCollectionFactory
      *             official: string,
      *             name: string,
      *          },
+     *          neighborhood?: string,
      *          function?: string,
      *          location_status?: string,
      *          property_status?: string,
